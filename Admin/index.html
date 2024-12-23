@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панель</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="admin-login">
+        <h2>Вход в админку</h2>
+        <form id="login-form">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Войти</button>
+        </form>
+        <p id="login-error" style="color: red; display: none;">Неверный пароль!</p>
+    </div>
+
+    <div id="admin-dashboard" style="display: none;">
+        <h2>Админ Панель</h2>
+        <button onclick="logout()">Выйти</button>
+        <h3>Управление пользователями</h3>
+        <ul id="user-list">
+            <!-- Здесь будут отображаться пользователи -->
+        </ul>
+        <h3>Отчеты</h3>
+        <button onclick="showReport()">Просмотреть отчет</button>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
