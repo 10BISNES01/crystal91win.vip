@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мины - Онлайн Казино</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="games.html">Игры</a></li>
+                <li><a href="profile.html">Профиль</a></li>
+                <li><a href="support.html">Поддержка</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Мины</h1>
+        <p>Играйте в Мины! Нажмите на клетки и избегайте мин.</p>
+
+        <div id="board">
+            <!-- Поле для игры -->
+        </div>
+
+        <button onclick="startGame()">Начать игру</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Онлайн Казино</p>
+    </footer>
+
+    <script>
+        let board;
+        let rows = 5;  // Размер игрового поля
+        let cols = 5;  // Размер игрового поля
+        let mines = 5; // Количество мин
+        let revealedCells = 0;
+
+        function startGame() {
+            board = Array(rows).fill().map(() => Array(cols).fill(0)); // Инициализируем поле
+            revealedCells = 0;
+
+            // Расставляем мины
+            for (let i = 0; i < mines; i++) {
+                let r = Math.floor(Math.random() * rows);
+                let c = Math.floor(Math.random() * cols);
+                if (board[r][c] !== 'M') {
+                    board[r][c] = 'M';
+                } else {
+                    i--;
+                }
+            }
+
+            // Генерация поля
+            let boardHTML = '';
+            for (let r = 0; r < rows; r++) {
+                boardHTML += '<div class="row">';
+                for (let c = 0; c < cols; c++) {
+                    boardHTML += `<button class="cell" onclick="reveal(${r}, ${c})">?</button>`;
+                }
+                boardHTML += '</div>';
+            }
+            document.getElementById('board').innerHTML = boardHTML;
+        }
+
+        function reveal(r, c) {
+            if (board[r][c] === 'M') {
+                alert('Вы подорвались! Игра окончена.');
+                startGame();  // Перезапускаем игру
+            } else {
+                revealedCells++;
+                document.getElementsByClassName('row')[r].children[c].innerText = '0';  // Показываем пустую клетку
+                if (revealedCells === rows * cols - mines) {
+                    alert('Вы победили!');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
